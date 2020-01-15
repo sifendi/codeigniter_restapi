@@ -18,8 +18,7 @@ class Pengajuan extends REST_Controller{
     	$this->response($data, 200); // Send an HTTP 201 Created
     }
 
-    public function index_post(){
-    	echo "Pengajuan post";
-        // Create a new book
-    }
+    
+
+    
 }

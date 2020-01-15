@@ -3,18 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
 
-class Employee extends REST_Controller{
+class Presensi extends REST_Controller{
     public function index_get(){
-    	$id = $this->get('id_pegawai');
+    	$id = $this->get('id_presensi');
     	if ($id == null || $id == "") {
-    		$data = $this->db->get('tb_pegawai')->result();
+    		$data = $this->db->get('tb_presensi')->result();
     		$bantu = apistandart('Success',$data);
     		$this->output
 		        ->set_content_type('application/json')
 		        ->set_output($bantu);
+
     	}else if(is_numeric($id)) {
-            $this->db->where('id_pegawai', $id);
-    		$data = $this->db->get('tb_pegawai')->result();
+            $this->db->where('id_presensi', $id);
+    		$data = $this->db->get('tb_presensi')->result();
     		$bantu = apistandart('Success Call Data By ID',$data);
     		$this->output
 		        ->set_content_type('application/json')
@@ -31,15 +32,17 @@ class Employee extends REST_Controller{
 
     public function index_post(){
     	$data = array(
-                    'id_pegawai'        => $this->post('id_pegawai'),
-                    'nama_pegawai'      => $this->post('nama_pegawai'),
-                    'alamat'            => $this->post('alamat'),
-                    'handphone'         => $this->post('handphone'),
-                    'status'            => $this->post('status'),
-                    'start_date'        => $this->post('start_date'),
-                    'end_date'          => $this->post('end_date'));
+                    'id_presensi'        => $this->post('id_presensi'),
+                    'id_pegawai'      => $this->post('id_pegawai'),
+                    'tanggal'            => $this->post('tanggal'),
+                    'ket_presensi'         => $this->post('ket_presensi'),
+                    'lat_'            => $this->post('lat_'),
+                    'long_'        => $this->post('long_'),
+                    'distance'          => $this->post('distance'),
+                    'type_absen'          => $this->post('type_absen'),
+                    'foto'          => $this->post('foto'));
 
-        $insert = $this->db->insert('tb_pegawai', $data);
+        $insert = $this->db->insert('tb_presensi', $data);
         if ($insert) {
         	$bantu = apistandart('Success','');
         	$this->output
