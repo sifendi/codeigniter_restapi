@@ -8,7 +8,7 @@ class Presensi extends REST_Controller{
     	$id = $this->get('id_presensi');
     	if ($id == null || $id == "") {
     		$data = $this->db->get('tb_presensi')->result();
-    		$bantu = apistandart('Success',$data);
+    		$bantu = apistandart('Success','false',$data);
     		$this->output
 		        ->set_content_type('application/json')
 		        ->set_output($bantu);
@@ -16,13 +16,13 @@ class Presensi extends REST_Controller{
     	}else if(is_numeric($id)) {
             $this->db->where('id_presensi', $id);
     		$data = $this->db->get('tb_presensi')->result();
-    		$bantu = apistandart('Success Call Data By ID',$data);
+    		$bantu = apistandart('Success Call Data By ID','false',$data);
     		$this->output
 		        ->set_content_type('application/json')
 		        ->set_output($bantu);
     	}else{
     		$data = $this->response(array('status' => 'fail, param is not correct'), 502);
-    		$bantu = apistandart('Failed',$data);
+    		$bantu = apistandart('Failed','true',$data);
     		$this->output
 		        ->set_content_type('application/json')
 		        ->set_output($bantu);
@@ -44,13 +44,13 @@ class Presensi extends REST_Controller{
 
         $insert = $this->db->insert('tb_presensi', $data);
         if ($insert) {
-        	$bantu = apistandart('Success','');
+        	$bantu = apistandart('Success','false','');
         	$this->output
         	->set_content_type('application/json')
         	->set_output($bantu);
         } else {
             $x = $this->response(array('status' => 'fail', 502));
-	  		$bantu = apistandart('Failed',$x);
+	  		$bantu = apistandart('Failed','true',$x);
 	    		$this->output
 			        ->set_content_type('application/json')
 			        ->set_output($bantu);
